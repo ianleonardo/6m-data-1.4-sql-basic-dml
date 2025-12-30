@@ -1,3 +1,5 @@
 solutions/
 *.wal
 *.csv
+venv/*
+oryx-build-commands.txt

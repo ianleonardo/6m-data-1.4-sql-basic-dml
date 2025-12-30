@@ -1,3 +1,150 @@
+## **Section 1: The Art of Asking (Selection, Filtering & Sorting)**
+
+**Time:** 60 Minutes
+
+### **Learning Objectives**
+
+Learners will be able to write queries to retrieve specific columns, apply mathematical operators, and filter datasets based on multiple text and numeric conditions8.
+
+### **Theory Recap (10 min) – *The "Conversation" with Data***
+
+**Instructor Script:** "Think of a database not as a scary technical box, but as a very organized librarian. To get what you want, you just need to be specific. SELECT is you pointing at what you want to see; FROM is you telling the librarian which shelf to look at; and WHERE is your set of rules—like 'only show me books published after 2010.' It's a conversation, not just code."
+
+### **Workshop (40 min)**
+
+**Task 1: Basic Retrieval**
+
+SQL
+
+\-- Step 1: See everything  
+SELECT \* FROM resale\_flat\_prices\_2017;
+
+\-- Step 2: Specific interest (Socratic: Why not select \* every time?)  
+SELECT street\_name, block, resale\_price FROM resale\_flat\_prices\_2017;
+
+* **Socratic Prompt:** "If our table had 100 columns and a million rows, what would happen to our computer's memory if we always used SELECT \*?"
+
+**Task 2: Transformations & Filtering**
+
+SQL
+
+\-- Calculate price in thousands and rename for clarity  
+SELECT street\_name, resale\_price / 1000 AS price\_k   
+FROM resale\_flat\_prices\_2017  
+WHERE town \= 'PUNGGOL'   
+  AND resale\_price \> 500000  
+ORDER BY resale\_price DESC;
+
+* **Instructor Prompt:** "I want to find a home for my parents. They need something larger than 100sqm, but my budget is strictly under $600,000. How would we write that rule?"
+
+### **Q\&A (5 min)**
+
+* **Common Hurdle:** "Do I need to capitalize SELECT?" (Answer: SQL is case-insensitive for keywords, but upper-case is industry standard for readability).
+
+### **Reflection (5 min)**
+
+* **Business Use Case:** How would a real estate app like PropertyGuru use these filters when a user moves a slider on their screen?
+
+## ---
+
+**Section 2: Finding the Big Picture (Aggregates & Grouping)**
+
+**Time:** 60 Minutes
+
+### **Learning Objectives**
+
+Learners will be able to summarize thousands of rows into meaningful insights (averages, counts) and segment those insights by categories9.
+
+### **Theory Recap (10 min) – *The "Bucket" Analogy***
+
+**Instructor Script:** "If I give you 10,000 receipts and ask for the average spent, you don't look at them one by one. You sum them and divide. That's AVG(). If I ask for the average spent *per store*, you first put the receipts into 'store buckets.' That is GROUP BY. GROUP BY is simply the act of sorting into buckets before doing the math."
+
+### **Workshop (40 min)**
+
+**Task 3: Basic Aggregates**
+
+SQL
+
+\-- How many transactions happened?  
+SELECT COUNT(\*) FROM resale\_flat\_prices\_2017;
+
+\-- What is the most expensive flat ever sold in this dataset?  
+SELECT MAX(resale\_price) FROM resale\_flat\_prices\_2017;
+
+**Task 4: Grouping & Having**
+
+SQL
+
+\-- Average price per town  
+SELECT town, AVG(resale\_price) AS avg\_price  
+FROM resale\_flat\_prices\_2017  
+GROUP BY town  
+HAVING avg\_price \> 600000 \-- Only show expensive towns  
+ORDER BY avg\_price DESC;
+
+* **Socratic Prompt:** "Wait, why can't I use WHERE avg\_price \> 600000? What's the difference between filtering a row and filtering a group?"10.
+
+### **Q\&A (5 min)**
+
+* **Common Hurdle:** "What happens if I forget the GROUP BY but use an AVG()?" (Answer: Most SQL engines will throw an error because they don't know how to display individual towns next to a single average).
+
+### **Reflection (5 min)**
+
+* **Business Use Case:** If you are a government planner, how does GROUP BY town help you decide where to build the next MRT station or school?
+
+## ---
+
+**Section 3: Advanced Logic & Data Cleaning**
+
+**Time:** 60 Minutes
+
+### **Learning Objectives**
+
+Learners will be able to categorize data using CASE, convert data types using CAST, and manipulate date strings11111111.
+
+### **Theory Recap (10 min) – *The "Translator"***
+
+**Instructor Script:** "Sometimes data isn't in the format we want. A date might be stored as text, or we might want to label prices as 'Cheap' or 'Expensive' instead of just numbers. CAST is our translator, and CASE is our logic builder—it’s like an 'If-Then' statement for your data."
+
+### **Workshop (40 min)**
+
+**Task 5: Categorizing with CASE**
+
+SQL
+
+SELECT town, resale\_price,  
+CASE   
+    WHEN resale\_price \> 1000000 THEN 'Million Dollar Club'  
+    WHEN resale\_price \> 500000 THEN 'Mid-Range'  
+    ELSE 'Entry-Level'   
+END AS price\_category  
+FROM resale\_flat\_prices\_2017;
+
+**Task 6: Dates and Casting**
+
+SQL
+
+\-- Convert text to a real date and extract the year  
+SELECT   
+    month,   
+    CONCAT(month, '-01')::DATE AS transaction\_date,  
+    date\_part('year', (month || '-01')::DATE) AS sale\_year  
+FROM resale\_flat\_prices\_2017;
+
+* **Socratic Prompt:** "If the 'month' column is text '2017-01', can we add 1 month to it directly? Why do we need to CAST it to a DATE type first?"
+
+### **Q\&A (5 min)**
+
+* **Common Hurdle:** "What does the :: mean?" (Answer: It’s a shorthand for the CAST function in DuckDB and Postgres).
+
+### **Reflection (5 min)**
+
+* **Business Use Case:** Why is it important to standardize date formats when merging data from two different countries?
+
+
+Below is the previous version
+---
+
 # Lesson
 
 ## Brief

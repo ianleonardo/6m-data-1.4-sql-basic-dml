@@ -1,6 +1,22 @@
-# Assignment
+# **Project Assignment: "The Property Analyst"**
 
-## Brief
+**Goal:** Identify the most "undervalued" town.
+
+1. Find the average resale\_price per town.  
+2. Filter for towns where the average price is less than $450,000.  
+3. Within those towns, find the top 5 largest flats (by floor\_area\_sqm) currently available.  
+4. **Level Up:** Create a new column called price\_per\_sqm and find which town has the lowest average price per square meter.
+
+
+---
+
+**Post-class Materials**
+
+* **Deep Dive:** [DuckDB Documentation on Aggregate Functions](https://duckdb.org/docs/sql/aggregates).  
+* **Optional Reading:** "SQL Performance Tuning for Beginners" – Why SELECT \* is often avoided in production.
+
+
+---
 
 Write the SQL DML statements for the following questions.
 
@@ -44,8 +60,3 @@ Count the number of flats sold in each town during the first quarter of 2017 (Ja
 ```sql
 
 ```
-
-## Submission
-
-- Submit the URL of the GitHub Repository that contains your work to NTU black board.
-- Should you reference the work of your classmate(s) or online resources, give them credit by adding either the name of your classmate or URL.
