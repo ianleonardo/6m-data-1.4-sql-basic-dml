@@ -22,7 +22,7 @@ Write the SQL DML statements for the following questions.
 
 ## Instructions
 
-Paste the answer as SQL in the answer code section below each question.
+Paste the answer as SQL in Discord Peer-Review channel. https://discord.com/channels/1165846570177150996/1457586759667028094
 
 ### Question 1
 
